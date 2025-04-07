@@ -96,11 +96,11 @@ async updateProfile(id: number, updateProfileDto: UpdateProfileDto): Promise<Use
 }
 
   //Hàm dùng trong auth module
-  async findOneByUsername(username: string) {
+  async findOneByUsername(username: string): Promise<User | null> {
     return await this.usersRepository.findOne({where: { email: username }});
   }
 
-  IsValidPassword(password: string, hash: string) {
+  IsValidPassword(password: string, hash: string): boolean {
     return compareSync(password, hash);
   }
 }
