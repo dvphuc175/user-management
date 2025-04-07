@@ -27,7 +27,7 @@ User Management System is a comprehensive backend solution built with NestJS and
 
 - **Database Integration**
   - PostgreSQL with TypeORM
-  - Database migrations (incomplete)
+  - Database migrations 
   - Entity relationship management
 
 ## Getting Started
@@ -89,4 +89,5 @@ $ npm run start:dev
 - `PATCH /api/users/:id` - Update a user (Admin or the user themselves)
 - `DELETE /api/users/:id` - Delete a user (Admin only)
 - `PATCH /api/users/:id/roles` - Update roles for a user (Admin only)
+- `PATCH /api/users/:id/profile` - Update profile (the user themselves)
 
