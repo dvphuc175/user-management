@@ -24,7 +24,10 @@ import { RolesGuard } from './auth/roles.guard';
       database: configService.get<string>('DB_DATABASE'),
       // url:'postgresql://neondb_owner:npg_9vnXT3yERcwu@ep-jolly-grass-a135l37l-pooler.ap-southeast-1.aws.neon.tech/dbtest?sslmode=require',
       entities: [User],
-      synchronize: true, 
+      synchronize: false, 
+      migrationsRun: true, // Tự động chạy migrations khi ứng dụng khởi động
+      migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+      migrationsTableName: 'migrations',
       })
     }),
     UsersModule,

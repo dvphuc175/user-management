@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs'
 import { compareSync } from 'bcryptjs';
 import { Role } from './enums/role.enum';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -80,6 +81,19 @@ export class UsersService {
     }
     return this.usersRepository.delete(id);
   }
+
+async updateProfile(id: number, updateProfileDto: UpdateProfileDto): Promise<User> {
+  const user = await this.findOne(id);
+  
+  if (!user) {
+    throw new NotFoundException(`User with ID ${id} not found`);
+  }
+  
+  // Cập nhật thông tin cá nhân
+  Object.assign(user, updateProfileDto);
+  
+  return this.usersRepository.save(user);
+}
 
   //Hàm dùng trong auth module
   async findOneByUsername(username: string) {

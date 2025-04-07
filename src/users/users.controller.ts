@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Roles } from 'src/decorator/roles.decorator';
 import { Role } from './enums/role.enum';
+import { IsSelfGuard } from '../auth/isSelf.guard';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Controller('users')
 export class UsersController {
@@ -50,4 +52,11 @@ export class UsersController {
   updateRoles(@Param('id') id: string, @Body('roles') roles: Role[]) {
     return this.usersService.updateRoles(+id, roles);
   }
+
+  @Patch(':id/profile')
+  @Roles(Role.USER)
+  @UseGuards(IsSelfGuard)
+  updateProfile(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
+  return this.usersService.updateProfile(+id, updateProfileDto);
+}
 }
